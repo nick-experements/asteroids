@@ -69,8 +69,6 @@
             var direction;
             
             
-            
-            
             Defender.prototype.move = function(){
                 const x = this.x
                 const y = this.y
@@ -81,30 +79,81 @@
                 }
                 
                 this.x += this.speed*direction;
-                if(this.x +blockSize*1.5 >= width || this.x - blockSize*1.5 <= 0){
-                    this.speed *= -1
+                if(this.x +blockSize*1.5 >= width){
+                    directionW = 'left'
+                } else if (this.x - blockSize*1.5 <= 0){
+                    directionW = 'right'
                 }
             }
+
+
+
+            var directionB;
+
+            function Bullet (x, y){
+                this.x = x
+                this.y = y
+                this.speed = 10
+                this.width = 7
+                this.height = blockSize
+            }
+
+
+            Bullet.prototype.draw = function (){
+                var x = this.x
+                var y = this.y
+                var widthB = this.width
+                var heightB = this.height
+                ctx.fillStyle = 'Gray'
+                ctx.fillRect(x - widthB*0.5, y - blockSize - heightB, widthB, heightB)
+
+                
+            }
             
-            
-    var directions = { 
-        37: "left",
-        39: "right"
-    };
-    $("body").keydown(function (event) {
-        directionW = directions[event.keyCode];
-    });
-    var defender = new Defender()
+            Bullet.prototype.move = function(){
 
-    setInterval(function(){
-        ctx.clearRect(0, 0, width, height)
-        defender.move()
-        defender.draw()
-        drawBorder();
-    }, 30)
-
-
-
-
-</script>
+                    this.y -= this.speed;
+                    
+                }
+                
+                
+                
+                
+                var directionsD = { 
+                    37: 'left',
+                    39: 'right',
+                };
+                var directionsB = {
+                    32: 'space'
+                }
+                
+                var bullet;
+                
+                $("body").keydown(function (event) {
+                    directionW = directionsD[event.keyCode];
+                    if (directionsB[event.keyCode] === 'space'){
+                        directionB = 'space'
+                        bullet = new Bullet(defender.x, defender.y)
+                    }
+                });
+                var defender = new Defender()
+                setInterval(function(){
+                    
+                    ctx.clearRect(0, 0, width, height)
+                    if (bullet){
+                        bullet.draw()
+                        bullet.move()
+                        if(bullet.y <= 0 ){
+                            bullet = null
+                        }
+                    }
+                    defender.move()
+                    defender.draw()
+                    drawBorder();
+                }, 30)
+                
+                
+                
+                
+            </script>
 </body>
