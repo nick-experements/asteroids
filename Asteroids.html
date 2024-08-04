@@ -47,6 +47,9 @@
             }
 
 
+
+
+
             var Defender = function () {
                 this.x = width/2;
                 this.y = height/1.05
@@ -59,26 +62,31 @@
                 ctx.fillStyle = 'Gray'
                 ctx.fillRect(x  - blockSize*1.5, y, blockSize*3, blockSize)
                 ctx.fillRect(x - blockSize*0.5, y-blockSize, blockSize, blockSize)
+
+                
             }
             
             var direction;
             
-
-
-
-    Defender.prototype.move = function(){
-        const x = this.x
-        const y = this.y
-        if(directionW === 'right'){
-            direction = 1
-        } else if(directionW === 'left'){
-            direction = -1
-        }
-
-        this.x += this.speed*direction;
-    }
-
-
+            
+            
+            
+            Defender.prototype.move = function(){
+                const x = this.x
+                const y = this.y
+                if(directionW === 'right'){
+                    direction = 1
+                } else if(directionW === 'left'){
+                    direction = -1
+                }
+                
+                this.x += this.speed*direction;
+                if(this.x +blockSize*1.5 >= width || this.x - blockSize*1.5 <= 0){
+                    this.speed *= -1
+                }
+            }
+            
+            
     var directions = { 
         37: "left",
         39: "right"
