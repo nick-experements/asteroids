@@ -133,8 +133,9 @@
                     directionW = directionsD[event.keyCode];
                     if (directionsB[event.keyCode] === 'space'){
                         directionB = 'space'
+                        if (!bullet){
                         bullet = new Bullet(defender.x, defender.y)
-                    }
+                    }}
                 });
                 var defender = new Defender()
                 setInterval(function(){
