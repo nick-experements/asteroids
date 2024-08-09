@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Asteroids!</title> 
+<title>Asteroid!</title> 
 </head>
 <body>
     <canvas id="canvas" width="500" height="500"></canvas>
@@ -36,7 +36,6 @@
                 ctx.fillText('Score: ' + String(score), blockSize, blockSize)
             }
             function gameOver(){
-                animationTime = inisialSpeed
                 clearTimeout(intervalId)
                 intervalId = null   
                 ctx.font = '60px Courier'
@@ -53,7 +52,7 @@
             var Defender = function () {
                 this.x = width/2;
                 this.y = height/1.05
-                this.speed = 5
+                this.speed = 10
             }
 
             Defender.prototype.draw = function (){
@@ -115,8 +114,36 @@
                     this.y -= this.speed;
                     
                 }
+
+            var asteroids = []
                 
-                
+            function Asteroid (x, y, radius) {
+                this.x = x//Math.floor(Math.random()*width);
+                this.y = y//height + 10;
+                this.radius = radius//Math.floor(Math.random()*blockSize*3+1);
+                this.speed = 3;
+            }
+
+            Asteroid.prototype.draw = function(){
+                var x = this.x
+                var y = this.y
+                var radius = this.radius
+
+                circle(x, y, radius, true)
+            }
+
+            Asteroid.prototype.move = function(){
+                this.y += this.speed
+
+            }
+            Asteroid.prototype.intersection = function(x, y){
+                const diffX = x - this.x
+                const diffY = y - this.y
+                return Math.sqrt(diffX**2 + diffY**2 ) <= this.radius
+            }
+            Asteroid.prototype.overflowY = function(height){
+                return this.y + this.radius >= height
+            }
                 
                 
                 var directionsD = { 
@@ -135,17 +162,38 @@
                         directionB = 'space'
                         if (!bullet){
                         bullet = new Bullet(defender.x, defender.y)
-                    }}
+                        }
+                    }
                 });
                 var defender = new Defender()
-                setInterval(function(){
+                intervalId = setInterval(function(){
                     
                     ctx.clearRect(0, 0, width, height)
+                    if (Math.random() <=0.007){
+                        asteroids.unshift(new Asteroid (Math.floor(Math.random()*width), 10,blockSize*(1+Math.random()*2)))
+                    }
+                    
+                    for(var i = 0; i < asteroids.length; i ++){
+                        asteroids[i].draw()
+                        asteroids[i].move()
+                        if(asteroids[i].overflowY(height)){
+                            gameOver()
+                        }
+                    }
+                    
+                    
                     if (bullet){
                         bullet.draw()
                         bullet.move()
-                        if(bullet.y <= 0 ){
-                            bullet = null
+                        for(var i = 0; i < asteroids.length; i++){
+                            if(asteroids[i].intersection(bullet.x, bullet.y)){
+                                asteroids.splice(i, 1)
+                                bullet = null
+    
+                            }
+                            else if(bullet.y <= 0 ){
+                                bullet = null
+                            }
                         }
                     }
                     defender.move()
