@@ -75,7 +75,7 @@
                 }
             }
 
-
+            var bullets = []
 
             var directionB;
 
@@ -150,9 +150,7 @@
                     directionW = directionsD[event.keyCode];
                     if (directionsB[event.keyCode] === 'space'){
                         directionB = 'space'
-                        if (!bullet){
-                        bullet = new Bullet(defender.x, defender.y)
-                        }
+                        bullets.push(new Bullet(defender.x, defender.y)) 
                     }
                 });
                 var defender = new Defender()
@@ -160,7 +158,7 @@
                     
                     ctx.clearRect(0, 0, width, height)
                     if (Math.random() <=0.007){
-                        asteroids.unshift(new Asteroid (Math.floor(Math.random()*width), 10,blockSize*(1+Math.random()*2)))
+                        asteroids.push(new Asteroid (Math.floor(Math.random()*width), 10,blockSize*(1+Math.random()*2)))
                     }
                     
                     for(var i = 0; i < asteroids.length; i ++){
@@ -171,20 +169,21 @@
                         }
                     }
                     
-                    
-                    if (bullet){
+                    for(var bulletIndex = 0; bulletIndex < bullets.length; bulletIndex++){
+                        const bullet = bullets[bulletIndex]
                         bullet.draw()
                         bullet.move()
                         for(var i = 0; i < asteroids.length; i++){
                             if(asteroids[i].intersection(bullet.x, bullet.y)){
                                 asteroids.splice(i, 1)
-                                bullet = null
+                                bullets.splice(bulletIndex, 1)
     
                             }
                             else if(bullet.y <= 0 ){
-                                bullet = null
+                                bullets.splice(bulletIndex, 1)
                             }
                         }
+
                     }
                     defender.move()
                     defender.draw()
