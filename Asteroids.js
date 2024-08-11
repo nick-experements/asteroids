@@ -134,7 +134,8 @@
             Asteroid.prototype.overflowY = function(height){
                 return this.y + this.radius >= height
             }
-                
+            
+            var chance = 0.01;
                 
                 var directionsD = { 
                     37: 'left',
@@ -157,7 +158,7 @@
                 intervalId = setInterval(function(){
                     
                     ctx.clearRect(0, 0, width, height)
-                    if (Math.random() <=0.01){
+                    if (Math.random() <=chance){
                         asteroids.push(new Asteroid (Math.floor(Math.random()*width), 10,blockSize*(1+Math.random()*2)))
                     }
                     
@@ -178,7 +179,7 @@
                                 asteroids.splice(i, 1)
                                 bullets.splice(bulletIndex, 1)
                                 score++
-    
+                                chance += 0.001
                             }
                             else if(bullet.y <= 0 ){
                                 bullets.splice(bulletIndex, 1)
