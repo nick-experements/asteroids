@@ -157,7 +157,7 @@
                 intervalId = setInterval(function(){
                     
                     ctx.clearRect(0, 0, width, height)
-                    if (Math.random() <=0.007){
+                    if (Math.random() <=0.01){
                         asteroids.push(new Asteroid (Math.floor(Math.random()*width), 10,blockSize*(1+Math.random()*2)))
                     }
                     
@@ -177,6 +177,7 @@
                             if(asteroids[i].intersection(bullet.x, bullet.y)){
                                 asteroids.splice(i, 1)
                                 bullets.splice(bulletIndex, 1)
+                                score++
     
                             }
                             else if(bullet.y <= 0 ){
@@ -185,6 +186,7 @@
                         }
 
                     }
+                    drawScore()
                     defender.move()
                     defender.draw()
                     drawBorder();
