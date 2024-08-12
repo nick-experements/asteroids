@@ -177,11 +177,14 @@
                         bullet.draw()
                         bullet.move()
                         for(var i = 0; i < asteroids.length; i++){
-                            if(asteroids[i].intersection(bullet.x, bullet.y)){
+                            if(asteroids[i].intersection(bullet.x, bullet.y) && asteroids[i].radius <= 2*blockSize){
                                 asteroids.splice(i, 1)
                                 bullets.splice(bulletIndex, 1)
                                 score++
                                 chance += 0.001
+                            }else if(asteroids[i].intersection(bullet.x, bullet.y)&&asteroids[i].radius >= 2*blockSize){
+                                asteroids[i].radius -= blockSize
+                                bullets.splice(bulletIndex, 1)
                             }
                             else if(bullet.y <= 0 ){
                                 bullets.splice(bulletIndex, 1)
