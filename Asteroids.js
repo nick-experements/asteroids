@@ -147,11 +147,13 @@
                 
                 var bullet;
                 
+                var lastBulletTime = 0
                 $("body").keydown(function (event) {
                     directionW = directionsD[event.keyCode];
-                    if (directionsB[event.keyCode] === 'space'){
+                    if (directionsB[event.keyCode] === 'space' && lastBulletTime - Date.now() <=-400){
                         directionB = 'space'
                         bullets.push(new Bullet(defender.x, defender.y)) 
+                        lastBulletTime = Date.now()
                     }
                 });
                 var defender = new Defender()
