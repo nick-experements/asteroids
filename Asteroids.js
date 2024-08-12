@@ -155,7 +155,7 @@
                 var lastBulletTime = 0
                 $("body").keydown(function (event) {
                     directionW = directionsD[event.keyCode];
-                    if (directionsB[event.keyCode] === 'space' && lastBulletTime - Date.now() <=-400){
+                    if (directionsB[event.keyCode] === 'space' && lastBulletTime - Date.now() <=-300){
                         directionB = 'space'
                         bullets.push(new Bullet(defender.x, defender.y)) 
                         lastBulletTime = Date.now()
