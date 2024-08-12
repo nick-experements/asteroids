@@ -123,7 +123,7 @@
             }
 
             Asteroid.prototype.move = function(){
-                this.y += this.speed
+                this.y += this.getSpeed()
 
             }
             Asteroid.prototype.intersection = function(x, y){
@@ -134,9 +134,14 @@
             Asteroid.prototype.overflowY = function(height){
                 return this.y + this.radius >= height
             }
+
+            Asteroid.prototype.getSpeed = function(){
+                return 1/this.radius * 30
+            }
             
             var chance = 0.01;
                 
+
                 var directionsD = { 
                     37: 'left',
                     39: 'right',
