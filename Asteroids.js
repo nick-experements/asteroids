@@ -163,15 +163,16 @@
                     if (Math.random() <=chance){
                         asteroids.push(new Asteroid (Math.floor(Math.random()*width), 10,blockSize*(1+Math.random()*2)))
                     }
-                    
                     for(var i = 0; i < asteroids.length; i ++){
+                        ctx.fillStyle = 'Gray'
                         asteroids[i].draw()
                         asteroids[i].move()
+                    }
+                    for(var i = 0; i < asteroids.length; i ++){
                         if(asteroids[i].overflowY(height)){
                             gameOver()
                         }
                     }
-                    
                     for(var bulletIndex = 0; bulletIndex < bullets.length; bulletIndex++){
                         const bullet = bullets[bulletIndex]
                         bullet.draw()
