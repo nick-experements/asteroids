@@ -166,7 +166,7 @@
                     
                     ctx.clearRect(0, 0, width, height)
                     if (Math.random() <=chance){
-                        asteroids.push(new Asteroid (Math.floor(Math.random()*width), 10,blockSize*(1+Math.random()*2)))
+                        asteroids.push(new Asteroid (Math.random()*(width-3*blockSize)+1.5*blockSize, 10,blockSize*(1+Math.random()*2)))
                     }
                     for(var i = 0; i < asteroids.length; i ++){
                         ctx.fillStyle = 'Gray'
