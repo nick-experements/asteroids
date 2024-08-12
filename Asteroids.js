@@ -178,23 +178,29 @@
                             gameOver()
                         }
                     }
+                
                     for(var bulletIndex = 0; bulletIndex < bullets.length; bulletIndex++){
-                        const bullet = bullets[bulletIndex]
+                        var bullet = bullets[bulletIndex]
                         bullet.draw()
                         bullet.move()
-                        for(var i = 0; i < asteroids.length; i++){
-                            if(asteroids[i].intersection(bullet.x, bullet.y) && asteroids[i].radius <= 2*blockSize){
-                                asteroids.splice(i, 1)
+                        for(var i = 0; i < asteroids.length && bullet; i++){
+                            if(asteroids[i].intersection(bullet.x, bullet.y)){
                                 bullets.splice(bulletIndex, 1)
-                                score++
-                                chance += 0.001
-                            }else if(asteroids[i].intersection(bullet.x, bullet.y)&&asteroids[i].radius >= 2*blockSize){
-                                asteroids[i].radius -= blockSize
-                                bullets.splice(bulletIndex, 1)
+                                bullet = null
+                                if(asteroids[i].radius >= 2*blockSize){
+                                    asteroids[i].radius -= blockSize
+                                }else{
+                                    asteroids.splice(i, 1)
+                                    score++
+                                    chance += 0.001
+
+                                }
+
+
                             }
-                            else if(bullet.y <= 0 ){
-                                bullets.splice(bulletIndex, 1)
-                            }
+                        }
+                        if(bullet.y <= 0 ){
+                            bullets.splice(bulletIndex, 1)
                         }
 
                     }
