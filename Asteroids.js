@@ -176,6 +176,8 @@ var circle = function (x, y, radius, fillCircle) {
             for(var i = 0; i < asteroids.length; i ++){
                 if(asteroids[i].overflowY(height)){
                     gameOver()
+                    var sound = new Audio("GameOver1.mp3");
+                    sound.play();
                 }
             }
         
