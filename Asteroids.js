@@ -151,6 +151,7 @@ var circle = function (x, y, radius, fillCircle) {
         }
         
         var bullet;
+        var soundB = new Audio("Sound/backgroundMusic.mp3")
         
         var lastBulletTime = 0
         $("body").keydown(function (event) {
@@ -176,8 +177,8 @@ var circle = function (x, y, radius, fillCircle) {
             for(var i = 0; i < asteroids.length; i ++){
                 if(asteroids[i].overflowY(height)){
                     gameOver()
-                    var sound = new Audio("GameOver1.mp3");
-                    sound.play();
+                    var soundG = new Audio("Sound/GameOver1.mp3");
+                    soundG.play();
                 }
             }
         
@@ -206,8 +207,13 @@ var circle = function (x, y, radius, fillCircle) {
                     bullets.splice(bulletIndex, 1)
                 }
             }
+
             drawScore()
             defender.move()
             defender.draw()
             drawBorder();
+        }, 30)
+
+        setInterval(function(){
+            soundB.play()
         }, 30)
