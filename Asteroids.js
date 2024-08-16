@@ -35,12 +35,12 @@ var circle = function (x, y, radius, fillCircle) {
     const blockSize = 10;
     var score = 0;
     function drawBorder(){
-        ctx.strokeStyle = 'Gray';
+        ctx.strokeStyle = '#59d0e2';
         ctx.lineWidth = blockSize;
         ctx.strokeRect(0, 0, width, height)
     }
     function drawScore(){
-        ctx.font = '20px Courier'
+        ctx.font = '30px Courier'
         ctx.fillStyle = 'white '
         ctx.textAlign = 'left'
         ctx.textBaseline = 'top'
