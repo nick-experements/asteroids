@@ -1,3 +1,8 @@
+var soundB = new Audio("Sound/backgroundMusic.mp3")
+setInterval(function(){
+    soundB.play()
+}, 30)
+
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 var directionW = 'right'
@@ -20,7 +25,7 @@ var circle = function (x, y, radius, fillCircle) {
     }
     function drawScore(){
         ctx.font = '20px Courier'
-        ctx.fillStyle = 'Black'
+        ctx.fillStyle = 'white '
         ctx.textAlign = 'left'
         ctx.textBaseline = 'top'
         ctx.fillText('Score: ' + String(score), blockSize, blockSize)
@@ -48,7 +53,7 @@ var circle = function (x, y, radius, fillCircle) {
     Defender.prototype.draw = function (){
         var x = this.x
         var y = this.y
-        ctx.fillStyle = 'Gray'
+        ctx.fillStyle = 'white '
         ctx.fillRect(x  - blockSize*1.5, y, blockSize*3, blockSize)
         ctx.fillRect(x - blockSize*0.5, y-blockSize, blockSize, blockSize)
 
@@ -151,7 +156,7 @@ var circle = function (x, y, radius, fillCircle) {
         }
         
         var bullet;
-        var soundB = new Audio("Sound/backgroundMusic.mp3")
+
         
         var lastBulletTime = 0
         $("body").keydown(function (event) {
@@ -214,6 +219,3 @@ var circle = function (x, y, radius, fillCircle) {
             drawBorder();
         }, 30)
 
-        setInterval(function(){
-            soundB.play()
-        }, 30)
