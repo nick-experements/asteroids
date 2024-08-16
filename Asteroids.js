@@ -1,8 +1,24 @@
 var soundB = new Audio("Sound/backgroundMusic.mp3")
-setInterval(function(){
-    soundB.play()
-}, 30)
+soundB.autoplay = true
+    // soundB.play()
+function checkSoundBePlaing(){
+    if(soundB.autoplay){
 
+        soundB.play()
+    }
+}
+function stopBackgroundSound (){
+    soundB.pause()
+    soundB.autoplay = false
+}
+function playGameOverSound (){
+    var soundG = new Audio("Sound/GameOver1.mp3");
+    soundG.play();
+}
+
+$('body').click(checkSoundBePlaing)
+$('body').keydown(checkSoundBePlaing)
+    
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 var directionW = 'right'
@@ -33,11 +49,15 @@ var circle = function (x, y, radius, fillCircle) {
     function gameOver(){
         clearTimeout(intervalId)
         intervalId = null   
+
         ctx.font = '60px Courier'
         ctx.fillStyle = 'Black'
         ctx.textAlign = 'center'
         ctx.textBaseline = 'middle'
         ctx.fillText('Game Over', width/2, height/2)
+
+        stopBackgroundSound ()
+        playGameOverSound ()
     }
 
 
@@ -53,7 +73,7 @@ var circle = function (x, y, radius, fillCircle) {
     Defender.prototype.draw = function (){
         var x = this.x
         var y = this.y
-        ctx.fillStyle = 'white '
+        ctx.fillStyle = 'white'
         ctx.fillRect(x  - blockSize*1.5, y, blockSize*3, blockSize)
         ctx.fillRect(x - blockSize*0.5, y-blockSize, blockSize, blockSize)
 
@@ -98,7 +118,7 @@ var circle = function (x, y, radius, fillCircle) {
         var y = this.y
         var widthB = this.width
         var heightB = this.height
-        ctx.fillStyle = 'Gray'
+        ctx.fillStyle = 'white'
         ctx.fillRect(x - widthB*0.5, y - blockSize - heightB, widthB, heightB)
 
         
@@ -182,8 +202,6 @@ var circle = function (x, y, radius, fillCircle) {
             for(var i = 0; i < asteroids.length; i ++){
                 if(asteroids[i].overflowY(height)){
                     gameOver()
-                    var soundG = new Audio("Sound/GameOver1.mp3");
-                    soundG.play();
                 }
             }
         
@@ -213,9 +231,11 @@ var circle = function (x, y, radius, fillCircle) {
                 }
             }
 
+            
             drawScore()
             defender.move()
             defender.draw()
             drawBorder();
         }, 30)
+
 
