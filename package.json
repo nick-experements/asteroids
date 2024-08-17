@@ -1,0 +1,32 @@
+{
+  "name": "asteroids",
+  "version": "0.0.1",
+  "description": "This is a game **Asteroids**. One is written on `JavaScript`",
+  "main": "Asteroids.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "eslint": "eslint",
+    "eslint:fix": "eslint --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nick-experements/asteroids.git"
+  },
+  "keywords": [
+    "play",
+    "game",
+    "space",
+    "asteroids"
+  ],
+  "author": "Alsaac Muthagoras",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nick-experements/asteroids/issues"
+  },
+  "homepage": "https://github.com/nick-experements/asteroids#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.9.0",
+    "eslint": "^9.9.0",
+    "globals": "^15.9.0"
+  }
+}
